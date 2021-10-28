@@ -9,6 +9,12 @@ def lowercase_columns(df):
     '''Accepts a pandas dataframe and returns it with all column names lowercased.'''
     return df.rename(columns = {c: c.lower() for c in df.columns})
 
+def flat_column_names(df):
+    '''Returns flattened multiindexed columns as single string values.'''
+    # Here, we convert column tuples to single string values.
+    flattened_column_names = list(map(lambda x: ' '.join(x) if type(x) == tuple else x, df.columns))
+    return flattened_column_names
+
 # ---------------------------- #
 ### END DATAFRAME OPERATIONS ###
 # ---------------------------- #
@@ -76,7 +82,7 @@ def normalize_query_text(txt):
 def compare_scripts(script_list_a, script_list_b):
     """The SQL code in script_list_b are expected to match those in script_list_a. \
     In the event of mismatches, script_list_a is assumed to be correct.
-    
+
     Each list is expected to be a list of lists like [[script_name, script_text], ...]"""
 
     mismatch_list = []
